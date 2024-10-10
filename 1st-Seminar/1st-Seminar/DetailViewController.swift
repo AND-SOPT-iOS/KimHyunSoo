@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 
 class DetailViewController: UIViewController {
@@ -54,29 +55,27 @@ class DetailViewController: UIViewController {
   }
   
   private func setLayout() {
-    NSLayoutConstraint.activate(
-      [
-        titleLabel.topAnchor.constraint(
-          equalTo: view.safeAreaLayoutGuide.topAnchor,
-          constant: 20
-        ),
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        contentLabel.topAnchor.constraint(
-          equalTo: titleLabel.bottomAnchor,
-          constant: 20
-        ),
-        contentLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        backButton.topAnchor.constraint(
-          equalTo: feelingLabel.bottomAnchor,
-          constant: 20
-        ),
-        feelingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        feelingLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 20),
-        backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        backButton.heightAnchor.constraint(equalToConstant: 44),
-        backButton.widthAnchor.constraint(equalToConstant: 300),
-      ]
-    )
+      titleLabel.snp.makeConstraints {
+          $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(20)
+          $0.centerX.equalToSuperview()
+      }
+      
+      contentLabel.snp.makeConstraints {
+          $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+          $0.centerX.equalToSuperview()
+      }
+      
+      feelingLabel.snp.makeConstraints {
+          $0.top.equalTo(contentLabel.snp.bottom).offset(20)
+          $0.centerX.equalToSuperview()
+      }
+      
+      backButton.snp.makeConstraints {
+          $0.top.equalTo(feelingLabel.snp.bottom).offset(20)
+          $0.centerX.equalToSuperview()
+          $0.width.equalTo(300)
+          $0.height.equalTo(44)
+      }
   }
     
     func updateUI() {
