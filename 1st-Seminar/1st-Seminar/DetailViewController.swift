@@ -8,14 +8,14 @@ class DetailViewController: UIViewController {
     label.font = .systemFont(ofSize: 16, weight: .semibold)
     return label
   }()
-  
-  private let contentLabel: UILabel = {
-    let label = UILabel()
-    label.font = .systemFont(ofSize: 12, weight: .regular)
-    label.numberOfLines = 0
-    label.textAlignment = .left
-    return label
-  }()
+    
+    private let contentLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        return label
+    }()
     
     private let feelingLabel: UILabel = {
         let label = UILabel()
@@ -103,5 +103,6 @@ class DetailViewController: UIViewController {
     }
   }
 }
+
 
 

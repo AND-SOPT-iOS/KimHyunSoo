@@ -146,9 +146,12 @@ class ViewController: UIViewController {
         }
     }
     
+    
     private func updateUI() {
         self.titleLabel.text = pushMode ? "네비게이션":"모달"
     }
+    
+    
     
     @objc func nextButtonTapped() {
         transitionToNextViewController()
@@ -169,7 +172,9 @@ extension ViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return feelings.count
     }
-    
+}
+
+extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return feelings[row]
     }
@@ -180,5 +185,3 @@ extension ViewController: UIPickerViewDataSource {
     }
 }
 
-extension ViewController: UIPickerViewDelegate {
-}
