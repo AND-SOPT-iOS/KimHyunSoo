@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.text = "토스"
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         label.textAlignment = .center
         return label
     }()
@@ -33,21 +33,22 @@ class ViewController: UIViewController {
         let tossImg = UIImageView()
         tossImg.image = UIImage(named: "toss")
         tossImg.layer.cornerRadius = 20
+        tossImg.layer.masksToBounds = true
         return tossImg
     }()
     
     private let detailTextField: UITextField = {
         let textField = UITextField()
         textField.text = "금융이 쉬워진다"
-        textField.textColor = .white
-        textField.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        textField.textColor = .gray
+        textField.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return textField
     }()
     
     private let openButton: UIButton = {
         let button = UIButton()
         button.setTitle("열기", for:  .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 15
         return button
@@ -165,6 +166,55 @@ class ViewController: UIViewController {
         return c3
     }()
     
+    private let newsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "새로운 소식"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.textColor = .white
+        return label
+    }()
+
+    private let versionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "버전 5.183.0"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .gray
+        return label
+    }()
+    
+    private let recordBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("버전 기록", for: .normal)
+        btn.setTitleColor(.tintColor, for: .normal)
+        btn.backgroundColor = .clear
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        btn.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        return btn
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "5일 전"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .gray
+        return label
+    }()
+    
+    private let newsText: UILabel = {
+        let textField = UILabel()
+        textField.text = " · 구석구석 숨어있던 버그들을 잡았어요. 또 다른 버그가 나타난다면 토스 고객센터를 찾아주세요. 늘 열려있답니다. \n365일 24시간 언제든지요."
+        textField.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        textField.textColor = .white
+        textField.numberOfLines = 0
+        return textField
+    }()
+    
+    private let line: UIView = {
+        let line = UIView()
+        line.backgroundColor = .gray
+        return line
+    }()
+    
     
     
     private let scrollView = UIScrollView()
@@ -185,7 +235,7 @@ class ViewController: UIViewController {
        let stackView2 = UIStackView()
         stackView2.axis = .horizontal
         stackView2.distribution = .fillEqually
-        stackView2.spacing = 5
+        stackView2.spacing = 2
         stackView2.backgroundColor = .gray
         stackView2.alignment = .center
         return stackView2
@@ -199,6 +249,7 @@ class ViewController: UIViewController {
         setStyle()
         setUI()
         setLayout()
+        self.navigationController?.navigationBar.isHidden = true;
     }
     
     private func setStyle() {
@@ -209,7 +260,7 @@ class ViewController: UIViewController {
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        //스택뷰1
+        //스택뷰1 - 구분용,,
         [titleLabel, tossImg, detailTextField, openButton, shareImg].forEach {
             stackView1.addSubview($0)
         }
@@ -220,7 +271,7 @@ class ViewController: UIViewController {
         }
         
         //content뷰
-        [prevImg, appLabel, stackView1, stackView2].forEach{
+        [prevImg, appLabel, stackView1, stackView2, newsLabel, versionLabel, newsText, dateLabel, recordBtn, line].forEach{
             contentView.addSubview($0)
         }
     }
@@ -259,9 +310,7 @@ class ViewController: UIViewController {
             $0.leading.equalTo(tossImg.snp.trailing).offset(20)
         }
         tossImg.snp.makeConstraints{
-            //$0.top.equalTo(appLabel.snp.bottom).offset(15)
             $0.height.equalTo(115)
-            //$0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         detailTextField.snp.makeConstraints{
             $0.height.equalTo(10)
@@ -290,21 +339,57 @@ class ViewController: UIViewController {
             $0.height.equalTo(90)
         }
         c1.snp.makeConstraints{
-            $0.width.equalTo(stackView2.snp.width).multipliedBy(0.9/3.0)
             $0.height.equalTo(stackView2.snp.height).multipliedBy(0.98)
         }
         c2.snp.makeConstraints{
-            $0.width.equalTo(stackView2.snp.width).multipliedBy(0.9/3.0)
             $0.height.equalTo(stackView2.snp.height).multipliedBy(0.98)
         }
         c3.snp.makeConstraints{
-            $0.width.equalTo(stackView2.snp.width).multipliedBy(0.9/3.0)
             $0.height.equalTo(stackView2.snp.height).multipliedBy(0.98)
         }
         
+        newsLabel.snp.makeConstraints{
+            $0.top.equalTo(stackView2.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        versionLabel.snp.makeConstraints{
+            $0.top.equalTo(newsLabel.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        newsText.snp.makeConstraints{
+            $0.top.equalTo(versionLabel.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+        }
+        recordBtn.snp.makeConstraints{
+            $0.top.equalTo(newsLabel)
+            $0.trailing.equalToSuperview().offset(-20)
+        }
+        dateLabel.snp.makeConstraints{
+            $0.top.equalTo(versionLabel)
+            $0.trailing.equalToSuperview().offset(-20)
+        }
+        
+        line.snp.makeConstraints{
+            $0.top.equalTo(newsText.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.height.equalTo(1)
+        }
+    }
+    
+    private func transitionToNextViewController() {
+        let nextViewController = DetailViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
+    
+    @objc private func buttonTapped() {
+        transitionToNextViewController()
     }
 
 
 }
+
 
 
