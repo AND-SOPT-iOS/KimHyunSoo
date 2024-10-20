@@ -1,6 +1,13 @@
 import UIKit
 import SnapKit
 
+func createStarImageView(systemName: String) -> UIImageView {
+    let star = UIImageView()
+    star.image = UIImage(systemName: systemName)
+    star.tintColor = .white
+    return star
+}
+
 class ViewController: UIViewController {
     
     private let prevImg: UIImageView = {
@@ -76,15 +83,22 @@ class ViewController: UIViewController {
         num.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         num.textColor = .gray
         
-        let starFill = UIImageView()
-        starFill.image = UIImage(systemName: "star.fill")
-        starFill.tintColor = .gray
-        let starHalf = UIImageView()
-        starHalf.image = UIImage(systemName: "star.leadinghalf.filled")
-        starHalf.tintColor = .gray
+        let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.leadinghalf.filled"]
         
+        let starStackView = UIStackView()
+        starStackView.axis = .horizontal
+        starStackView.distribution = .fillEqually
+        starStackView.spacing = 1
+        
+        for starImageName in starImages {
+            let starImageView = createStarImageView(systemName: starImageName)
+            starImageView.tintColor = .gray
+            starStackView.addArrangedSubview(starImageView)
+        }
+
         c1.addSubview(text)
         c1.addSubview(num)
+        c1.addSubview(starStackView)
         
         text.snp.makeConstraints{
             $0.top.equalToSuperview().offset(10)
@@ -92,6 +106,10 @@ class ViewController: UIViewController {
         }
         num.snp.makeConstraints{
             $0.top.equalTo(text.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        starStackView.snp.makeConstraints{
+            $0.top.equalTo(num.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
         }
         
@@ -110,15 +128,24 @@ class ViewController: UIViewController {
         let person = UIImageView()
         person.image = UIImage(systemName: "person")
         
+        let app = UILabel()
+        app.text = "앱"
+        app.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        app.textColor = .gray
+        
         c2.addSubview(c2text)
         c2.addSubview(person)
-        
+        c2.addSubview(app)
         c2text.snp.makeConstraints{
             $0.top.equalToSuperview().offset(10)
             $0.centerX.equalToSuperview()
         }
         person.snp.makeConstraints{
             $0.top.equalTo(c2text.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        app.snp.makeConstraints{
+            $0.top.equalTo(person.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
         }
 
@@ -300,7 +327,7 @@ class ViewController: UIViewController {
         btn.setTitleColor(.white, for: .normal)
         btn.backgroundColor = .clear
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
-        btn.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(reviewButtonTapped), for: .touchUpInside)
         return btn
     }()
     private let reviewImg: UIImageView = {
@@ -343,6 +370,72 @@ class ViewController: UIViewController {
         review.layer.cornerRadius = 20
         return review
     }()
+    private let userReviewDate: UILabel = {
+        let label = UILabel()
+        label.text = "9월 27일"
+        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.textColor = .gray
+        return label
+    }()
+    private let devReviewDate: UILabel = {
+        let label = UILabel()
+        label.text = "9월 29일"
+        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.textColor = .gray
+        return label
+    }()
+    private let devReview: UILabel = {
+        let label = UILabel()
+        label.text = "개발자 답변"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.textColor = .white
+        return label
+    }()
+    private let userReviewText: UILabel = {
+        let label = UILabel()
+        label.text = "최근 업데이트가 토스 만의 ux색깔 개성자체를 잃어버린 것 같습니다. 메인화면 볼때마다 되게 부드럽고 하눈에 보기 편했는데, 이번 업데이트로 인해 딱딱해진 것 같네요. 새로움을 지향하는 건 좋으나 이용자들에게 강제가 아닌 선택할 수 있는 옵션이라도 만들어 주셨으면 어떨까요?"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .white
+        label.numberOfLines = 2
+        return label
+    }()
+    private let devReviewText: UILabel = {
+        let label = UILabel()
+        label.text = "안녕하세요. 토스팀입니다. 소중한 의견을 주셔서 너무나 감사합니다. 토스 화면 UI를 사용자의 요구를 반영해 조금 더 편리하게 사용하도록 변경 하였습니다만, 고객님처럼 불편하게 느끼셨을 수도 있다고 생각합니다. 사용에 불편을 드려 죄송합니다.고객님께서 말씀해주신 내용은 반영될 수 있다 확답 드리기는 어려우나, 팀내에 공유하여 보다 편리한 토스 사용 경험을 하실 수 있도록 노력 하겠습니다. 다른 문의 사항이 있다면 24시간 운영되는 카카오톡(@toss) 또는 고객센터 1599-4905로 문의 부탁드립니다. 감사합니다."
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .white
+        label.numberOfLines = 2
+        return label
+    }()
+    private let estimateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "탭하여 평가하기"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.textColor = .white
+        return label
+    }()
+    private let reviewButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        btn.setTitle("리뷰 작성", for: .normal)
+        btn.setTitleColor(.tintColor, for: .normal)
+        btn.backgroundColor = .darkGray
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        btn.layer.cornerRadius = 10
+        btn.semanticContentAttribute = .forceLeftToRight
+        return btn
+    }()
+    private let helpButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
+        btn.setTitle("앱 지원", for: .normal)
+        btn.setTitleColor(.tintColor, for: .normal)
+        btn.backgroundColor = .darkGray
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        btn.layer.cornerRadius = 10
+        btn.semanticContentAttribute = .forceLeftToRight
+        return btn
+    }()
     
     
     private let scrollView = UIScrollView()
@@ -376,15 +469,45 @@ class ViewController: UIViewController {
         stackView3.spacing = 1
         
         let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.leadinghalf.filled"]
-        
+
         for starImageName in starImages {
-            let star = UIImageView()
-            star.image = UIImage(systemName: starImageName)
-            star.tintColor = .white
-            stackView3.addArrangedSubview(star)
+            let starImageView = createStarImageView(systemName: starImageName)
+            stackView3.addArrangedSubview(starImageView)
         }
         
         return stackView3
+    }()
+    
+    private let stackView4: UIStackView = {
+        let stackView3 = UIStackView()
+        stackView3.axis = .horizontal
+        stackView3.distribution = .fillEqually
+        stackView3.spacing = 1
+        
+        let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.fill"]
+
+        for starImageName in starImages {
+            let starImageView = createStarImageView(systemName: starImageName)
+            stackView3.addArrangedSubview(starImageView)
+        }
+        
+        return stackView3
+    }()
+    
+    private let stackView5: UIStackView = {
+        let stackView5 = UIStackView()
+        stackView5.axis = .horizontal
+        stackView5.distribution = .fillEqually
+        stackView5.spacing = 5
+        
+        let starImages = ["star", "star", "star", "star", "star"]
+
+        for starImageName in starImages {
+            let starImageView = createStarImageView(systemName: starImageName)
+            starImageView.tintColor = .tintColor
+            stackView5.addArrangedSubview(starImageView)
+        }
+        return stackView5
     }()
     
     
@@ -416,14 +539,13 @@ class ViewController: UIViewController {
             stackView2.addArrangedSubview($0)
         }
         
-        [reviewTitle].forEach {
+        [reviewTitle, stackView4, userReviewDate, userReviewText, devReviewDate, devReviewText, devReview].forEach {
             reviewDetail.addSubview($0)
         }
         
-        
         //content뷰
         [
-            prevImg, appLabel, stackView1, stackView2, newsLabel, versionLabel, newsText, dateLabel, recordBtn, line, previewText, previewImg, phoneImg, phoneLabel,line2, explainText, moreLabel, vivaLabel, developerLabel, nextRightImg, reviewImg, reviewLabel, gradeLabel, stackView3, helpfulReviewDetail, helpfulReview, reviewDetail
+            prevImg, appLabel, stackView1, stackView2, newsLabel, versionLabel, newsText, dateLabel, recordBtn, line, previewText, previewImg, phoneImg, phoneLabel,line2, explainText, moreLabel, vivaLabel, developerLabel, nextRightImg, reviewImg, reviewLabel, gradeLabel, stackView3, helpfulReviewDetail, helpfulReview, reviewDetail, estimateLabel, stackView5, reviewButton, helpButton
         ].forEach{
             contentView.addSubview($0)
         }
@@ -540,7 +662,7 @@ class ViewController: UIViewController {
         }
         previewImg.snp.makeConstraints{
             $0.top.equalTo(previewText.snp.bottom).offset(15)
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.width.equalTo(200)
             $0.height.equalTo(200)
         }
@@ -614,12 +736,59 @@ class ViewController: UIViewController {
             $0.top.equalTo(helpfulReview.snp.bottom).offset(10)
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
-            $0.height.greaterThanOrEqualTo(250)
-            //$0.bottom.equalToSuperview().offset(-20)
+            $0.height.greaterThanOrEqualTo(200)
         }
         reviewTitle.snp.makeConstraints{
             $0.top.equalToSuperview().offset(15)
             $0.leading.equalToSuperview().offset(15)
+        }
+        stackView4.snp.makeConstraints{
+            $0.top.equalTo(reviewTitle.snp.bottom).offset(8)
+            $0.leading.equalToSuperview().offset(15)
+        }
+        userReviewDate.snp.makeConstraints{
+            $0.top.equalTo(reviewTitle.snp.bottom).offset(8)
+            $0.leading.equalTo(stackView4.snp.trailing).offset(5)
+        }
+        userReviewText.snp.makeConstraints{
+            $0.top.equalTo(stackView4.snp.bottom).offset(2)
+            $0.leading.equalToSuperview().offset(15)
+            $0.trailing.equalToSuperview().offset(-15)
+        }
+        devReview.snp.makeConstraints{
+            $0.top.equalTo(userReviewText.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().offset(15)
+        }
+        devReviewDate.snp.makeConstraints{
+            $0.top.equalTo(devReview)
+            $0.leading.equalTo(devReview.snp.trailing).offset(5)
+        }
+        devReviewText.snp.makeConstraints{
+            $0.top.equalTo(devReview.snp.bottom).offset(2)
+            $0.leading.equalToSuperview().offset(15)
+            $0.trailing.equalToSuperview().offset(-15)
+        }
+        estimateLabel.snp.makeConstraints{
+            $0.top.equalTo(reviewDetail.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
+        }
+        stackView5.snp.makeConstraints{
+            $0.top.equalTo(estimateLabel.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+        }
+        reviewButton.snp.makeConstraints{
+            $0.top.equalTo(stackView5.snp.bottom).offset(18)
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(160)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().offset(-20)
+        }
+        helpButton.snp.makeConstraints{
+            $0.top.equalTo(stackView5.snp.bottom).offset(18)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.width.equalTo(160)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().offset(-20)
         }
     }
     
@@ -628,9 +797,18 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
+    private func transitionToReviewViewController() {
+        let nextViewController = ReviewViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
     
     @objc private func buttonTapped() {
         transitionToNextViewController()
+    }
+
+    @objc private func reviewButtonTapped() {
+        transitionToReviewViewController()
     }
 
 
