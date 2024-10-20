@@ -12,6 +12,12 @@ class DetailViewController: UIViewController {
         return label
     }()
     
+    private let prevImg: UIImageView = {
+        let prevImg = UIImageView()
+        prevImg.image = UIImage(systemName: "chevron.left")
+        return prevImg
+    }()
+    
     private lazy var backButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("뒤로", for: .normal)
@@ -19,6 +25,14 @@ class DetailViewController: UIViewController {
         btn.setTitleColor(.tintColor, for: .normal)
         btn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return btn
+    }()
+    
+    private let textField: UITextField = {
+        let text = UITextField()
+        text.text = "버전기록 페이지"
+        text.textColor = .white
+        text.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        return text
     }()
     
     
@@ -37,20 +51,29 @@ class DetailViewController: UIViewController {
     }
     
     private func setUI() {
-        [backButton, titleLabel].forEach {
+        [prevImg, backButton, titleLabel, textField].forEach {
             self.view.addSubview($0)
         }
         
     }
     
     private func setLayout() {
-        backButton.snp.makeConstraints{
+        prevImg.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(20)
+            $0.height.equalTo(18)
+            $0.width.equalTo(18)
             $0.leading.equalTo(20)
+        }
+        backButton.snp.makeConstraints{
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(13)
+            $0.leading.equalTo(prevImg.snp.trailing).offset(2)
         }
         titleLabel.snp.makeConstraints{
             $0.top.equalTo(backButton.snp.bottom).offset(20)
             $0.leading.equalTo(20)
+        }
+        textField.snp.makeConstraints{
+            $0.center.equalToSuperview()
         }
         
     }
