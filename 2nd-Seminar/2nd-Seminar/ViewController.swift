@@ -1,11 +1,21 @@
 import UIKit
 import SnapKit
 
-func createStarImageView(systemName: String) -> UIImageView {
-    let star = UIImageView()
-    star.image = UIImage(systemName: systemName)
-    star.tintColor = .white
-    return star
+func createStarStack(starImages: [String], tintColor: UIColor = .gray, spacing: CGFloat = 1) -> UIStackView {
+    let starStack = UIStackView()
+    starStack.axis = .horizontal
+    starStack.distribution = .fillEqually
+    starStack.spacing = spacing
+    
+    for starImageName in starImages {
+        let starImage = UIImageView()
+        starImage.image = UIImage(systemName: starImageName)
+        starImage.tintColor = tintColor
+        starImage.contentMode = .scaleAspectFit
+        starStack.addArrangedSubview(starImage)
+    }
+    
+    return starStack
 }
 
 class ViewController: UIViewController {
@@ -83,22 +93,15 @@ class ViewController: UIViewController {
         num.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         num.textColor = .gray
         
-        let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.leadinghalf.filled"]
-        
-        let starStackView = UIStackView()
-        starStackView.axis = .horizontal
-        starStackView.distribution = .fillEqually
-        starStackView.spacing = 1
-        
-        for starImageName in starImages {
-            let starImageView = createStarImageView(systemName: starImageName)
-            starImageView.tintColor = .gray
-            starStackView.addArrangedSubview(starImageView)
-        }
+
+        let starStack: UIStackView = {
+            let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.leadinghalf.filled"]
+            return createStarStack(starImages: starImages, tintColor: .gray)
+        }()
 
         c1.addSubview(text)
         c1.addSubview(num)
-        c1.addSubview(starStackView)
+        c1.addSubview(starStack)
         
         text.snp.makeConstraints{
             $0.top.equalToSuperview().offset(10)
@@ -108,7 +111,7 @@ class ViewController: UIViewController {
             $0.top.equalTo(text.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
         }
-        starStackView.snp.makeConstraints{
+        starStack.snp.makeConstraints{
             $0.top.equalTo(num.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
         }
@@ -463,53 +466,19 @@ class ViewController: UIViewController {
     }()
     
     private let stackView3: UIStackView = {
-        let stackView3 = UIStackView()
-        stackView3.axis = .horizontal
-        stackView3.distribution = .fillEqually
-        stackView3.spacing = 1
-        
         let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.leadinghalf.filled"]
-
-        for starImageName in starImages {
-            let starImageView = createStarImageView(systemName: starImageName)
-            stackView3.addArrangedSubview(starImageView)
-        }
-        
-        return stackView3
+        return createStarStack(starImages: starImages, tintColor: .white)
     }()
-    
+
     private let stackView4: UIStackView = {
-        let stackView3 = UIStackView()
-        stackView3.axis = .horizontal
-        stackView3.distribution = .fillEqually
-        stackView3.spacing = 1
-        
         let starImages = ["star.fill", "star.fill", "star.fill", "star.fill", "star.fill"]
-
-        for starImageName in starImages {
-            let starImageView = createStarImageView(systemName: starImageName)
-            stackView3.addArrangedSubview(starImageView)
-        }
-        
-        return stackView3
+        return createStarStack(starImages: starImages, tintColor: .white)
     }()
-    
+
     private let stackView5: UIStackView = {
-        let stackView5 = UIStackView()
-        stackView5.axis = .horizontal
-        stackView5.distribution = .fillEqually
-        stackView5.spacing = 5
-        
         let starImages = ["star", "star", "star", "star", "star"]
-
-        for starImageName in starImages {
-            let starImageView = createStarImageView(systemName: starImageName)
-            starImageView.tintColor = .tintColor
-            stackView5.addArrangedSubview(starImageView)
-        }
-        return stackView5
+        return createStarStack(starImages: starImages, tintColor: .tintColor, spacing: 5)
     }()
-    
     
     
     override func viewDidLoad() {
