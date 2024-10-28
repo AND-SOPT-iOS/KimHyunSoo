@@ -1,4 +1,5 @@
 import UIKit
+
 import SnapKit
 
 func createStarStack(starImages: [String], tintColor: UIColor = .gray, spacing: CGFloat = 1) -> UIStackView {
@@ -245,7 +246,8 @@ class ViewController: UIViewController {
     //이미지 미리보기
     private let line: UIView = {
         let line = UIView()
-        line.backgroundColor = .gray
+        //line.backgroundColor = .gray
+        line.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         return line
     }()
     
@@ -783,5 +785,8 @@ class ViewController: UIViewController {
 
 }
 
+#Preview {
+    ViewController()
+}
 
 
