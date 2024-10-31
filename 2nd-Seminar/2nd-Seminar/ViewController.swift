@@ -4,7 +4,7 @@ import SnapKit
 
 class ViewController: UIViewController {
     
-    private let startButton: UIButton = {
+    private lazy var startButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("시작", for: .normal)
         btn.backgroundColor = .tintColor

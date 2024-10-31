@@ -8,9 +8,15 @@ class FinanceViewController: UIViewController {
     private var contentView = UIView()
     
     private var firstSectionView = FirstSectionView()
+    private var secondSectionView = SecondSectionView()
+    private var paidRanking = PaidRankingView()
+    private var freeRanking = FreeRankingView()
+    
+    private lazy var viewAllButton = freeRanking.viewAll
     
     private var apps: [FirstSectionApps] = []
     
+    //스크롤뷰 bottom설정용
     private let fake = UIView()
     
     override func viewDidLoad() {
@@ -18,6 +24,7 @@ class FinanceViewController: UIViewController {
         setUI()
         setLayout()
         register()
+        setAddTarget()
         
         
         //네비바 설정
@@ -31,15 +38,20 @@ class FinanceViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         firstSectionView.configure(with: FirstSectionApps.firstSectionApps)
-        
     }
+    
     
     private func setUI() {
         self.view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
         
-        [firstSectionView, fake].forEach { contentView.addSubview($0) }
-        
+        scrollView.addSubviews(contentView)
+        contentView.addSubviews(
+            firstSectionView,
+            secondSectionView,
+            fake,
+            paidRanking,
+            freeRanking
+        )
     }
     
     private func setLayout() {
@@ -60,6 +72,24 @@ class FinanceViewController: UIViewController {
             $0.height.equalTo(250)
         }
         
+        secondSectionView.snp.makeConstraints{
+            $0.top.equalTo(firstSectionView.snp.bottom).offset(25)
+            $0.leading.trailing.equalToSuperview().offset(10)
+            $0.height.equalTo(250)
+        }
+        
+        paidRanking.snp.makeConstraints{
+            $0.top.equalTo(secondSectionView.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().offset(10)
+            $0.height.equalTo(250)
+        }
+        
+        freeRanking.snp.makeConstraints{
+            $0.top.equalTo(paidRanking.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().offset(10)
+            $0.height.equalTo(250)
+        }
+        
         fake.snp.makeConstraints{
             $0.top.equalToSuperview().offset(2000)
             $0.leading.trailing.equalToSuperview()
@@ -70,6 +100,15 @@ class FinanceViewController: UIViewController {
     
     private func register() {
         firstSectionView.collectionView.register(FirstSectionCollectionCell.self, forCellWithReuseIdentifier: "FirstSectionCollectionCell")
+    }
+    
+    private func setAddTarget() {
+        viewAllButton.addTarget(self, action: #selector(viewAllButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func viewAllButtonTapped() {
+        let nextViewController = PopularChartsViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
 

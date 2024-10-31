@@ -20,23 +20,7 @@ func createStarStack(starImages: [String], tintColor: UIColor = .gray, spacing: 
 }
 
 class TossController: UIViewController {
-    
-    private let prevImg: UIImageView = {
-        let prevImg = UIImageView()
-        prevImg.image = UIImage(systemName: "chevron.left")
-        return prevImg
-    }()
-    
-    private let appLabel: UILabel = {
-        let label = UILabel()
-        label.text = "앱"
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .systemBlue
-        label.textAlignment = .center
-        return label
-    }()
 
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "토스"
@@ -489,7 +473,10 @@ class TossController: UIViewController {
         setStyle()
         setUI()
         setLayout()
-        self.navigationController?.navigationBar.isHidden = true;
+        
+        view.backgroundColor = .black
+        let backBarButtonItem = UIBarButtonItem(title: "앱", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func setStyle() {
@@ -516,7 +503,7 @@ class TossController: UIViewController {
         
         //content뷰
         [
-            prevImg, appLabel, stackView1, stackView2, newsLabel, versionLabel, newsText, dateLabel, recordBtn, line, previewText, previewImg, phoneImg, phoneLabel,line2, explainText, moreLabel, vivaLabel, developerLabel, nextRightImg, reviewImg, reviewLabel, gradeLabel, stackView3, helpfulReviewDetail, helpfulReview, reviewDetail, estimateLabel, stackView5, reviewButton, helpButton
+            stackView1, stackView2, newsLabel, versionLabel, newsText, dateLabel, recordBtn, line, previewText, previewImg, phoneImg, phoneLabel,line2, explainText, moreLabel, vivaLabel, developerLabel, nextRightImg, reviewImg, reviewLabel, gradeLabel, stackView3, helpfulReviewDetail, helpfulReview, reviewDetail, estimateLabel, stackView5, reviewButton, helpButton
         ].forEach{
             contentView.addSubview($0)
         }
@@ -531,21 +518,10 @@ class TossController: UIViewController {
             $0.width.equalTo(scrollView)
             $0.height.greaterThanOrEqualTo(view.snp.height).priority(.required)
         }
-        prevImg.snp.makeConstraints{
-            $0.top.equalTo(contentView).offset(15)
-            $0.height.equalTo(18)
-            $0.width.equalTo(18)
-            $0.leading.equalToSuperview().offset(20)
-        }
-        appLabel.snp.makeConstraints{
-            $0.top.equalTo(contentView).offset(15)
-            $0.height.equalTo(18)
-            $0.leading.equalTo(prevImg.snp.trailing).offset(2)
-        }
         
         //스택뷰1 레이아웃 설정
         stackView1.snp.makeConstraints{
-            $0.top.equalTo(appLabel.snp.bottom).offset(20)
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(120)
@@ -556,7 +532,7 @@ class TossController: UIViewController {
             $0.leading.equalToSuperview()
         }
         titleLabel.snp.makeConstraints{
-            $0.top.equalTo(contentView).offset(55)
+            $0.top.equalTo(tossImg)
             $0.height.equalTo(16)
             $0.leading.equalTo(tossImg.snp.trailing).offset(20)
         }
