@@ -38,6 +38,8 @@ class FinanceViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         firstSectionView.configure(with: FirstSectionApps.firstSectionApps)
+        secondSectionView.configure(with: SecondSectionApps.secondSectionApps)
+        paidRanking.configure(with: PaidRankingApps.paidRankingApps)
     }
     
     
@@ -75,13 +77,13 @@ class FinanceViewController: UIViewController {
         secondSectionView.snp.makeConstraints{
             $0.top.equalTo(firstSectionView.snp.bottom).offset(25)
             $0.leading.trailing.equalToSuperview().offset(10)
-            $0.height.equalTo(250)
+            $0.height.equalTo(450)
         }
         
         paidRanking.snp.makeConstraints{
             $0.top.equalTo(secondSectionView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().offset(10)
-            $0.height.equalTo(250)
+            $0.height.equalTo(450)
         }
         
         freeRanking.snp.makeConstraints{
