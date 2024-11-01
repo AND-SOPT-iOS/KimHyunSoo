@@ -6,13 +6,13 @@ class PaidRankingView: UIView {
     
     private var apps:[PaidRankingApps] = []
     
-    private let itemWidth = UIScreen.main.bounds.width - 4
-    private let itemHeight = UIScreen.main.bounds.width / 3 - 8
+    private let itemWidth = UIScreen.main.bounds.width
+    private let itemHeight = UIScreen.main.bounds.width / 3
     
     private let appLabel: UILabel = {
         let label = UILabel()
         label.text = "유료 순위"
-        label.font = .systemFont(ofSize: 20, weight: .heavy)
+        label.font = .systemFont(ofSize: 25, weight: .heavy)
         label.textColor = .white
         return label
     }()
@@ -20,7 +20,7 @@ class PaidRankingView: UIView {
     private let viewAll: UIButton = {
         let btn = UIButton()
         btn.setTitle("모두보기", for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = .systemFont(ofSize: 25, weight: .regular)
         btn.setTitleColor(.tintColor, for: .normal)
         return btn
     }()
@@ -29,8 +29,8 @@ class PaidRankingView: UIView {
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout().then {
             $0.scrollDirection = .horizontal
-            $0.minimumLineSpacing = 2
-            $0.minimumInteritemSpacing = 4
+            $0.minimumLineSpacing = 0
+            $0.minimumInteritemSpacing = 0
             $0.scrollDirection = .horizontal
             $0.itemSize = .init(width: itemWidth, height: itemHeight)
         }
@@ -76,7 +76,7 @@ class PaidRankingView: UIView {
         
         collectionView.snp.makeConstraints{
             $0.top.equalTo(appLabel.snp.bottom).offset(12)
-            $0.height.equalTo(itemHeight * 3 + 8)
+            $0.height.equalTo(itemHeight * 3)
             $0.leading.trailing.equalToSuperview()
         }
     }

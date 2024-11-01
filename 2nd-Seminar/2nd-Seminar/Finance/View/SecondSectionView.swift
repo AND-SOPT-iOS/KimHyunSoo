@@ -6,13 +6,13 @@ class SecondSectionView: UIView {
     
     private var apps:[SecondSectionApps] = []
     
-    private let itemWidth = UIScreen.main.bounds.width - 4
-    private let itemHeight = UIScreen.main.bounds.width / 3 - 8
+    private let itemWidth = UIScreen.main.bounds.width
+    private let itemHeight = UIScreen.main.bounds.width / 3
     
     private let appLabel: UILabel = {
         let label = UILabel()
         label.text = "필수 금융 앱"
-        label.font = .systemFont(ofSize: 20, weight: .heavy)
+        label.font = .systemFont(ofSize: 25, weight: .heavy)
         label.textColor = .white
         return label
     }()
@@ -20,7 +20,7 @@ class SecondSectionView: UIView {
     private let appInfo: UILabel = {
         let label = UILabel()
         label.text = "에디터가 직접 골랐습니다."
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .gray
         return label
     }()
@@ -29,8 +29,8 @@ class SecondSectionView: UIView {
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout().then {
             $0.scrollDirection = .horizontal
-            $0.minimumLineSpacing = 2
-            $0.minimumInteritemSpacing = 4
+            $0.minimumLineSpacing = 0
+            $0.minimumInteritemSpacing = 0
             $0.scrollDirection = .horizontal
             $0.itemSize = .init(width: itemWidth, height: itemHeight)
         }
@@ -76,7 +76,7 @@ class SecondSectionView: UIView {
         
         collectionView.snp.makeConstraints{
             $0.top.equalTo(appInfo.snp.bottom).offset(12)
-            $0.height.equalTo(itemHeight * 3 + 8)
+            $0.height.equalTo(itemHeight * 3)
             $0.leading.trailing.equalToSuperview()
         }
     }

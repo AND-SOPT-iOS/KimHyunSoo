@@ -1,10 +1,3 @@
-//
-//  FirstSectionCollectionCell.swift
-//  2nd-Seminar
-//
-//  Created by MaengKim on 10/30/24.
-//
-
 import UIKit
 
 import SnapKit
@@ -14,17 +7,17 @@ class FirstSectionCollectionCell: UICollectionViewCell {
     static let identifier = "FirstSectionCollectionCell"
     
     private let category = UILabel().then {
-        $0.font = .systemFont(ofSize: 12, weight: .regular)
+        $0.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.textColor = .tintColor
     }
     
     private let nameLabel = UILabel().then{
-        $0.font = .systemFont(ofSize: 20, weight: .regular)
+        $0.font = .systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = .white
     }
     
     private let infoLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 18, weight: .regular)
+        $0.font = .systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .gray
     }
     

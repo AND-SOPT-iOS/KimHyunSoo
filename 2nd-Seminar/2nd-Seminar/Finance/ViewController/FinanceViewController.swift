@@ -16,8 +16,13 @@ class FinanceViewController: UIViewController {
     
     private var apps: [FirstSectionApps] = []
     
-    //스크롤뷰 bottom설정용
-    private let fake = UIView()
+    private let codeChangeButton = UIButton().then {
+        $0.setTitle("코드 교환", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.layer.cornerRadius = 15
+        $0.backgroundColor = .darkGray
+        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +30,6 @@ class FinanceViewController: UIViewController {
         setLayout()
         register()
         setAddTarget()
-        
         
         //네비바 설정
         self.navigationController?.navigationBar.titleTextAttributes = [
@@ -40,6 +44,7 @@ class FinanceViewController: UIViewController {
         firstSectionView.configure(with: FirstSectionApps.firstSectionApps)
         secondSectionView.configure(with: SecondSectionApps.secondSectionApps)
         paidRanking.configure(with: PaidRankingApps.paidRankingApps)
+        freeRanking.configure(with: FreeRankingApps.freeRankingApps)
     }
     
     
@@ -50,9 +55,9 @@ class FinanceViewController: UIViewController {
         contentView.addSubviews(
             firstSectionView,
             secondSectionView,
-            fake,
             paidRanking,
-            freeRanking
+            freeRanking,
+            codeChangeButton
         )
     }
     
@@ -92,11 +97,12 @@ class FinanceViewController: UIViewController {
             $0.height.equalTo(250)
         }
         
-        fake.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(2000)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(10)
+        codeChangeButton.snp.makeConstraints{
+            $0.top.equalTo(freeRanking.snp.bottom).offset(250)
+            $0.height.equalTo(50)
+            $0.width.equalTo(300)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-20)
         }
     }
     

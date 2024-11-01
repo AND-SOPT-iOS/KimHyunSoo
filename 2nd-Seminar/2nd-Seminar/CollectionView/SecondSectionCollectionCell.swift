@@ -1,10 +1,3 @@
-//
-//  SecondSectionCollectionCell.swift
-//  2nd-Seminar
-//
-//  Created by MaengKim on 10/31/24.
-//
-
 import UIKit
 
 import SnapKit
@@ -18,18 +11,19 @@ class SecondSectionCollectionCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     private let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = .white
     }
     private let subTitleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 10, weight: .regular)
+        $0.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.textColor = .gray
     }
     private let downloadButton = UIButton().then {
         $0.backgroundColor = .darkGray
         $0.setTitleColor(.tintColor, for: .normal)
-        $0.layer.cornerRadius = 15/2
-        $0.titleLabel?.font = .systemFont(ofSize: 10, weight: .semibold)
+        $0.layer.cornerRadius = 25/2
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     
     override init(frame: CGRect) {
@@ -56,7 +50,7 @@ class SecondSectionCollectionCell: UICollectionViewCell {
         appImage.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
-            $0.size.equalTo(60)
+            $0.size.equalTo(70)
         }
         
         titleLabel.snp.makeConstraints {
@@ -73,8 +67,8 @@ class SecondSectionCollectionCell: UICollectionViewCell {
             $0.centerY.equalTo(titleLabel)
             $0.trailing.equalToSuperview().offset(-10)
             $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
-            $0.width.equalTo(45)
-            $0.height.equalTo(15)
+            $0.width.equalTo(60)
+            $0.height.equalTo(25)
         }
     }
     

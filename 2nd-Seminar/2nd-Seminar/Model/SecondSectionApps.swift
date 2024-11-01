@@ -1,12 +1,4 @@
-//
-//  SecondSectionApps.swift
-//  2nd-Seminar
-//
-//  Created by MaengKim on 11/1/24.
-//
-
 import Foundation
-
 import UIKit
 
 struct SecondSectionApps {

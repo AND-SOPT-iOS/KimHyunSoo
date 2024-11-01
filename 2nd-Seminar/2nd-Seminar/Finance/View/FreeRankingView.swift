@@ -4,10 +4,15 @@ import SnapKit
 
 class FreeRankingView: UIView {
     
+    private var apps:[FreeRankingApps] = []
+    
+    private let itemWidth = UIScreen.main.bounds.width - 4
+    private let itemHeight = UIScreen.main.bounds.width / 3 - 8
+    
     private let appLabel: UILabel = {
         let label = UILabel()
         label.text = "무료 순위"
-        label.font = .systemFont(ofSize: 20, weight: .heavy)
+        label.font = .systemFont(ofSize: 25, weight: .heavy)
         label.textColor = .white
         return label
     }()
@@ -15,7 +20,7 @@ class FreeRankingView: UIView {
     let viewAll: UIButton = {
         let btn = UIButton()
         btn.setTitle("모두보기", for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
+        btn.titleLabel?.font = .systemFont(ofSize: 25, weight: .regular)
         btn.setTitleColor(.tintColor, for: .normal)
         return btn
     }()
@@ -24,15 +29,17 @@ class FreeRankingView: UIView {
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout().then {
             $0.scrollDirection = .horizontal
-            $0.minimumLineSpacing = 10
-            $0.minimumInteritemSpacing = 10
-            $0.itemSize = CGSize(width: 300, height: 400)
+            $0.minimumLineSpacing = 2
+            $0.minimumInteritemSpacing = 4
+            $0.scrollDirection = .horizontal
+            $0.itemSize = .init(width: itemWidth, height: itemHeight)
         }
     ).then {
-        //$0.dataSource = self
+        $0.dataSource = self
         $0.showsHorizontalScrollIndicator = false
         $0.backgroundColor = .clear
-        //$0.register(SecondSectionCollectionCell.self, forCellWithReuseIdentifier: SecondSectionCollectionCell.identifier)
+        $0.isPagingEnabled = false
+        $0.register(FreeRankingCollectionCell.self, forCellWithReuseIdentifier: FreeRankingCollectionCell.identifier)
     }
 
     
@@ -69,6 +76,25 @@ class FreeRankingView: UIView {
         
         collectionView.snp.makeConstraints{
             $0.top.equalTo(appLabel.snp.bottom).offset(12)
+            $0.height.equalTo(itemHeight * 3 + 8)
+            $0.leading.trailing.equalToSuperview()
         }
+    }
+    
+    func configure(with apps: [FreeRankingApps]) {
+        self.apps = apps
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension FreeRankingView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return apps.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FreeRankingCollectionCell.identifier, for: indexPath) as! FreeRankingCollectionCell
+        cell.configure(with: apps[indexPath.row])
+        return cell
     }
 }

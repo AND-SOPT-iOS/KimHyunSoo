@@ -1,10 +1,3 @@
-//
-//  DownloadState.swift
-//  2nd-Seminar
-//
-//  Created by MaengKim on 10/31/24.
-//
-
 import Foundation
 
 enum DownloadState: String {
