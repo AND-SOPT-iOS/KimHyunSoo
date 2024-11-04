@@ -55,8 +55,11 @@ extension FirstSectionView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstSectionCollectionCell.identifier, for: indexPath) as! FirstSectionCollectionCell
-        cell.configure(with: apps[indexPath.row])
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstSectionCollectionCell.identifier, for: indexPath) as? FirstSectionCollectionCell {
+            cell.configure(with: apps[indexPath.row])
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
     }
 }

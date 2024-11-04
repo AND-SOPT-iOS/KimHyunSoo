@@ -93,9 +93,12 @@ extension SecondSectionView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondSectionCollectionCell.identifier, for: indexPath) as! SecondSectionCollectionCell
-        cell.configure(with: apps[indexPath.row])
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondSectionCollectionCell.identifier, for: indexPath) as? SecondSectionCollectionCell {
+            cell.configure(with: apps[indexPath.row])
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
     }
 }
 

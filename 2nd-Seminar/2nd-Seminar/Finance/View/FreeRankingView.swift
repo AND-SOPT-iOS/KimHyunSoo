@@ -93,8 +93,11 @@ extension FreeRankingView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FreeRankingCollectionCell.identifier, for: indexPath) as! FreeRankingCollectionCell
-        cell.configure(with: apps[indexPath.row])
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FreeRankingCollectionCell.identifier, for: indexPath) as? FreeRankingCollectionCell {
+            cell.configure(with: apps[indexPath.row])
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
     }
 }

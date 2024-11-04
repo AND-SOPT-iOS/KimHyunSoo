@@ -93,9 +93,12 @@ extension PaidRankingView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaidRankingCollectionCell.identifier, for: indexPath) as! PaidRankingCollectionCell
-        cell.configure(with: apps[indexPath.row])
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaidRankingCollectionCell.identifier, for: indexPath) as? PaidRankingCollectionCell {
+            cell.configure(with: apps[indexPath.row])
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
     }
 }
 
