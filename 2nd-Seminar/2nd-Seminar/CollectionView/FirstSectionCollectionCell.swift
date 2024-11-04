@@ -32,7 +32,6 @@ class FirstSectionCollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         setUI()
         setLayout()
-        setStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -40,12 +39,7 @@ class FirstSectionCollectionCell: UICollectionViewCell {
     }
     
     private func setUI() {
-        [
-            category,
-            nameLabel,
-            infoLabel,
-            appImageView
-        ].forEach { addSubview($0) }
+        addSubviews(category, nameLabel, infoLabel, appImageView)
     }
     
     private func setLayout() {
@@ -71,10 +65,6 @@ class FirstSectionCollectionCell: UICollectionViewCell {
             $0.width.equalToSuperview()
             $0.height.equalTo(180)
         }
-    }
-    
-    private func setStyle() {
-        
     }
     
     func configure(with app: FirstSectionApps) {

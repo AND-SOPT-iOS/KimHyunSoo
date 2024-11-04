@@ -4,27 +4,32 @@ import SnapKit
 import Then
 
 class FreeRankingCollectionCell: UICollectionViewCell {
+    
     static let identifier = "FreeRankingCollectionCell"
     
     private let appImage = UIImageView().then {
         $0.layer.cornerRadius = 15
         $0.clipsToBounds = true
     }
+    
     private let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = .white
+        $0.numberOfLines = 2
     }
+    
     private let subTitleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.textColor = .gray
     }
+    
     private let downloadButton = UIButton().then {
         $0.backgroundColor = .darkGray
         $0.setTitleColor(.tintColor, for: .normal)
         $0.layer.cornerRadius = 25/2
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
+    
     private let rankingLabel = UILabel().then{
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 20, weight: .bold)
@@ -35,7 +40,6 @@ class FreeRankingCollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         setUI()
         setLayout()
-        setStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -80,12 +84,6 @@ class FreeRankingCollectionCell: UICollectionViewCell {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
             $0.width.equalTo(60)
             $0.height.equalTo(25)
-        }
-    }
-    
-    private func setStyle() {
-        titleLabel.do {
-            $0.numberOfLines = 2
         }
     }
     

@@ -33,7 +33,7 @@ class PopularChartsTableCell: UITableViewCell {
     private var downloadButton = UIButton().then{
         $0.backgroundColor = .darkGray
         $0.setTitleColor(.tintColor, for: .normal)
-        $0.layer.cornerRadius = 25/2
+        $0.layer.cornerRadius = 12
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     
@@ -62,11 +62,12 @@ class PopularChartsTableCell: UITableViewCell {
     }
     
     private func setUI() {
-        addSubviews(iconImageView,
-                    titleLabel,
-                    subTitleLabel,
-                    rankingLabel,
-                    downloadButton
+        addSubviews(
+            iconImageView,
+            titleLabel,
+            subTitleLabel,
+            rankingLabel,
+            downloadButton
         )
     }
     
@@ -119,7 +120,7 @@ class PopularChartsTableCell: UITableViewCell {
             self.addGestureRecognizer(tapGesture)
         }
 
-        @objc private func handleTap() {
-            delegate?.didTapCell(index: index)
-        }
+    @objc private func handleTap() {
+        delegate?.didTapCell(index: index)
+    }
 }

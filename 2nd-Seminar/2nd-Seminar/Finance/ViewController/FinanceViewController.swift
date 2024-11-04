@@ -50,8 +50,8 @@ class FinanceViewController: UIViewController {
     
     private func setUI() {
         self.view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
-        scrollView.addSubviews(contentView)
         contentView.addSubviews(
             firstSectionView,
             secondSectionView,
@@ -121,6 +121,7 @@ class FinanceViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+
 extension FinanceViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

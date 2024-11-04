@@ -426,12 +426,9 @@ class TossController: UIViewController {
         return btn
     }()
     
-    
     private let scrollView = UIScrollView()
     private var contentView = UIView()
 
-    
-    
     //스택뷰
     private let stackView1: UIStackView = {
         let stackView1 = UIStackView()
@@ -503,7 +500,35 @@ class TossController: UIViewController {
         
         //content뷰
         [
-            stackView1, stackView2, newsLabel, versionLabel, newsText, dateLabel, recordBtn, line, previewText, previewImg, phoneImg, phoneLabel,line2, explainText, moreLabel, vivaLabel, developerLabel, nextRightImg, reviewImg, reviewLabel, gradeLabel, stackView3, helpfulReviewDetail, helpfulReview, reviewDetail, estimateLabel, stackView5, reviewButton, helpButton
+            stackView1, 
+            stackView2,
+            newsLabel,
+            versionLabel,
+            newsText,
+            dateLabel,
+            recordBtn,
+            line,
+            previewText,
+            previewImg,
+            phoneImg,
+            phoneLabel,
+            line2,
+            explainText,
+            moreLabel,
+            vivaLabel,
+            developerLabel,
+            nextRightImg,
+            reviewImg,
+            reviewLabel,
+            gradeLabel,
+            stackView3,
+            helpfulReviewDetail,
+            helpfulReview,
+            reviewDetail,
+            estimateLabel,
+            stackView5,
+            reviewButton,
+            helpButton
         ].forEach{
             contentView.addSubview($0)
         }

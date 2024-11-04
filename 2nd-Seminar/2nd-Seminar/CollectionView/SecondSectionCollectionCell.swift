@@ -13,6 +13,7 @@ class SecondSectionCollectionCell: UICollectionViewCell {
     private let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = .white
+        $0.numberOfLines = 2
     }
     private let subTitleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
@@ -23,14 +24,12 @@ class SecondSectionCollectionCell: UICollectionViewCell {
         $0.setTitleColor(.tintColor, for: .normal)
         $0.layer.cornerRadius = 25/2
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
         setLayout()
-        setStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -69,12 +68,6 @@ class SecondSectionCollectionCell: UICollectionViewCell {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
             $0.width.equalTo(60)
             $0.height.equalTo(25)
-        }
-    }
-    
-    private func setStyle() {
-        titleLabel.do {
-            $0.numberOfLines = 2
         }
     }
     
