@@ -12,6 +12,14 @@ class ViewController: UIViewController {
         return btn
     }()
     
+    private var serverButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("서버", for: .normal)
+        btn.backgroundColor = .tintColor
+        btn.addTarget(self, action: #selector(serverButtonTapped), for: .touchUpInside)
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,15 +30,25 @@ class ViewController: UIViewController {
     }
     
     private func setUI() {
-        self.view.addSubview(startButton)
+        
+        self.view.addSubviews(startButton,serverButton)
         
         startButton.snp.makeConstraints{
             $0.center.equalToSuperview()
+        }
+        serverButton.snp.makeConstraints{
+            $0.top.equalTo(startButton.snp.bottom).offset(30)
+            $0.leading.equalTo(startButton)
         }
     }
     
     @objc func startButtonTapped() {
         let nextViewController = FinanceViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
+    @objc func serverButtonTapped() {
+        let nextViewController = LoginViewController()
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

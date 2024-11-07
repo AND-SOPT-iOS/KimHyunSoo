@@ -26,7 +26,7 @@ class FreeRankingCollectionCell: UICollectionViewCell {
     private let downloadButton = UIButton().then {
         $0.backgroundColor = .darkGray
         $0.setTitleColor(.tintColor, for: .normal)
-        $0.layer.cornerRadius = 25/2
+        $0.layer.cornerRadius = 12
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     
