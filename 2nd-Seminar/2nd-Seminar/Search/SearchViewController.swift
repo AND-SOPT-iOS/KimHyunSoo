@@ -7,6 +7,8 @@ class SearchViewController: UIViewController {
     
     let userService = UserService()
     
+    // MARK: - UI Propertise
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "🔈 친구의 취미를 공개합니다 !"
@@ -37,6 +39,8 @@ class SearchViewController: UIViewController {
         return btn
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +54,8 @@ class SearchViewController: UIViewController {
         setUI()
         setLayout()
     }
+    
+    // MARK: - SetUI
     
     private func setUI() {
         view.backgroundColor = .white
@@ -81,6 +87,8 @@ class SearchViewController: UIViewController {
         }
         
     }
+    
+    // MARK: - @objc Func
     
     @objc func searchButtonTapped() {
         userService.getOtherHobby(num: Int (otherNoTextField.text!) ?? 0) { [weak self] result in

@@ -7,6 +7,8 @@ class SignupViewController: UIViewController {
     
     let userService = UserService()
     
+    // MARK: - UI Properties
+    
     var usernameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "이름을 입력해주세요."
@@ -45,6 +47,8 @@ class SignupViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +63,8 @@ class SignupViewController: UIViewController {
         setUI()
         setLayout()
     }
+    
+    // MARK: - SetUI
     
     private func setUI() {
         view.backgroundColor = .white
@@ -101,6 +107,8 @@ class SignupViewController: UIViewController {
             $0.centerX.equalToSuperview()
         }
     }
+    
+    //MARK: -  @objc Func
     
     @objc func signUpButtonTapped() {
       userService.register(

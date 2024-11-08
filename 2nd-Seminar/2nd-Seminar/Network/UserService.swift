@@ -10,54 +10,57 @@ import Foundation
 import Alamofire
 
 class UserService {
-
-  func register(
-    username: String,
-    password: String,
-    hobby: String,
-    completion: @escaping (Result<SignupResponse, NetworkError>) -> Void
-  ) {
-
-    let url = Environment.baseURL + "/user"
-
-    let parameters = SignupRequest(
-      username: username,
-      password: password,
-      hobby: hobby
-    )
-
-    AF.request(
-      url,
-      method: .post,
-      parameters: parameters,
-      encoder: JSONParameterEncoder.default
-    )
-    .validate()
-    .response { [weak self] response in
-        print(response.data)
-        print(response.response?.statusCode)
-      guard let statusCode = response.response?.statusCode,
-            let data = response.data,
-            let self
-      else {
-        completion(.failure(.unknownError))
-        return
-      }
-
-      switch response.result {
-      case .success:
-          do {
-              let signupResponse = try JSONDecoder().decode(SignupResponse.self, from: data)
-              completion(.success(signupResponse))
-          } catch {
-              completion(.failure(.decodingError))
-          }
-      case .failure:
-        let error = self.handleStatusCode(statusCode, data: data)
-        completion(.failure(error))
-      }
+    
+    // MARK: - func Register
+    
+    func register(
+        username: String,
+        password: String,
+        hobby: String,
+        completion: @escaping (Result<SignupResponse, NetworkError>) -> Void) {
+        
+        let url = Environment.baseURL + "/user"
+        
+        let parameters = SignupRequest(
+            username: username,
+            password: password,
+            hobby: hobby
+        )
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: parameters,
+            encoder: JSONParameterEncoder.default
+        )
+        .validate()
+        .response { [weak self] response in
+            print(response.data)
+            print(response.response?.statusCode)
+            guard let statusCode = response.response?.statusCode,
+                  let data = response.data,
+                  let self
+            else {
+                completion(.failure(.unknownError))
+                return
+            }
+            
+            switch response.result {
+            case .success:
+                do {
+                    let signupResponse = try JSONDecoder().decode(SignupResponse.self, from: data)
+                    completion(.success(signupResponse))
+                } catch {
+                    completion(.failure(.decodingError))
+                }
+            case .failure:
+                let error = self.handleStatusCode(statusCode, data: data)
+                completion(.failure(error))
+            }
+        }
     }
-  }
+    
+    // MARK: - func Login
     
     func login(
         username: String,
@@ -105,6 +108,8 @@ class UserService {
         }
     }
     
+    // MARK: - func GetMyHobby
+    
     func getMyHobby(completion: @escaping (Result<MypageResponse, NetworkError>) -> Void
     ){
         let url = Environment.baseURL + "/user/my-hobby"
@@ -144,6 +149,7 @@ class UserService {
         }
     }
     
+    // MARK: - func UpdateUserInfo
     func updateUserInfo(hobby: String, password: String, completion: @escaping (Result<Void, NetworkError>) -> Void) {
         
         let url = Environment.baseURL + "/user"
@@ -186,7 +192,8 @@ class UserService {
         }
         
     }
-    //넘버값을 textfield로 받아서 넘겨버리기
+    
+    // MARK: - func GetOtherHobby
     
     func getOtherHobby(num: Int, completion: @escaping (Result<SearchResponse, NetworkError>) -> Void
     ){
@@ -226,33 +233,35 @@ class UserService {
             
         }
     }
+    
+    // MARK: - func About Error
 
-  func handleStatusCode(
-    _ statusCode: Int,
-    data: Data
-  ) -> NetworkError {
-    let errorCode = decodeError(data: data)
-    switch (statusCode, errorCode) {
-    case (400, "00"):
-      return .invalidRequest
-    case (400, "01"):
-      return .expressionError
-    case (404, ""):
-      return .invalidURL
-    case (409, "00"):
-      return .duplicateError
-    case (500, ""):
-      return .serverError
-    default:
-      return .unknownError
+    func handleStatusCode(
+        _ statusCode: Int,
+        data: Data
+    ) -> NetworkError {
+        let errorCode = decodeError(data: data)
+        switch (statusCode, errorCode) {
+        case (400, "00"):
+            return .invalidRequest
+        case (400, "01"):
+            return .expressionError
+        case (404, ""):
+            return .invalidURL
+        case (409, "00"):
+            return .duplicateError
+        case (500, ""):
+            return .serverError
+        default:
+            return .unknownError
+        }
     }
-  }
 
-  func decodeError(data: Data) -> String {
-    guard let errorResponse = try? JSONDecoder().decode(
-      ErrorResponse.self,
-      from: data
-    ) else { return "" }
-    return errorResponse.code
-  }
+    func decodeError(data: Data) -> String {
+        guard let errorResponse = try? JSONDecoder().decode(
+            ErrorResponse.self,
+            from: data
+        ) else { return "" }
+        return errorResponse.code
+    }
 }

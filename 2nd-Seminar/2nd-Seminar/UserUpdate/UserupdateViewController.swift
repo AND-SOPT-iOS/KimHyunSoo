@@ -7,6 +7,8 @@ class UserupdateViewController: UIViewController {
     
     let userService = UserService()
     
+    // MARK: - UI Properties
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "🔏 취미를 수정해요"
@@ -45,6 +47,8 @@ class UserupdateViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +62,8 @@ class UserupdateViewController: UIViewController {
         setUI()
         setLayout()
     }
+    
+    // MARK: - SetUI
     
     private func setUI() {
         view.backgroundColor = .white
@@ -91,6 +97,8 @@ class UserupdateViewController: UIViewController {
         }
         
     }
+    
+    // MARK: - @objc Func
     
     @objc func updateButtonTapped() {
         if hobbyTextField.text == "" {
