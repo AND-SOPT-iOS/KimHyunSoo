@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 import SnapKit
 
@@ -8,12 +9,17 @@ protocol TableCellDelegate: AnyObject {
 
 class PopularChartsViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.backgroundColor = .black
         
     }
 
     private let appList = PopularChartsApp.popularApps
+    
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +40,7 @@ class PopularChartsViewController: UIViewController {
         
     }
     
+    // MARK: - Private Func
     
     private func setUI() {
         self.view.addSubview(tableView)
@@ -46,7 +53,7 @@ class PopularChartsViewController: UIViewController {
     }
     
     private func register() {
-        tableView.register(PopularChartsTableCell.self, forCellReuseIdentifier: PopularChartsTableCell.identifier)
+        tableView.register(Week6UIHostingCell<Week6ChartCellView>.self, forCellReuseIdentifier: "Week6UIHostingCell")
     }
     
     private func setDelegate() {
@@ -54,6 +61,8 @@ class PopularChartsViewController: UIViewController {
         tableView.dataSource = self
     }
 }
+
+// MARK: - Extension
 
 extension PopularChartsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -67,14 +76,28 @@ extension PopularChartsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      guard let cell = tableView.dequeueReusableCell(
-        withIdentifier: PopularChartsTableCell.identifier,
-        for: indexPath
-      ) as? PopularChartsTableCell else { return UITableViewCell() }
-        cell.delegate = self
-        cell.configurate(app: appList[indexPath.row], index: indexPath.row)
-      return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Week6UIHostingCell", for: indexPath) as? Week6UIHostingCell<Week6ChartCellView> else {
+            return UITableViewCell()
+        }
+        
+        let app = appList[indexPath.row]
+        let swiftUIView = Week6ChartCellView(app: app, index: indexPath.row) {
+            print("\(app.title)") //버튼 누르면 app 이름 출력
+        }
+        
+        cell.configure(with: swiftUIView, parent: self)
+        return cell
     }
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//      guard let cell = tableView.dequeueReusableCell(
+//        withIdentifier: PopularChartsTableCell.identifier,
+//        for: indexPath
+//      ) as? PopularChartsTableCell else { return UITableViewCell() }
+//        cell.delegate = self
+//        cell.configurate(app: appList[indexPath.row], index: indexPath.row)
+//      return cell
+//    }
   }
 
 extension PopularChartsViewController: TableCellDelegate {
@@ -85,3 +108,8 @@ extension PopularChartsViewController: TableCellDelegate {
         }
     }
 }
+
+#Preview {
+    PopularChartsViewController()
+}
+
