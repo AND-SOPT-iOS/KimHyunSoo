@@ -55,6 +55,8 @@
 		6CBD1D442CBA599C00DFDCCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CBD1D432CBA599C00DFDCCF /* Assets.xcassets */; };
 		6CBD1D472CBA599C00DFDCCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CBD1D452CBA599C00DFDCCF /* LaunchScreen.storyboard */; };
 		6CBD1D502CBA5A1300DFDCCF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CBD1D4F2CBA5A1300DFDCCF /* SnapKit */; };
+		6CC415012CF9A8C200139A87 /* Week6UIHostingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC415002CF9A88800139A87 /* Week6UIHostingCell.swift */; };
+		6CC415032CF9B65C00139A87 /* Week6ChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC415022CF9B64200139A87 /* Week6ChartCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,8 @@
 		6CBD1D432CBA599C00DFDCCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CBD1D462CBA599C00DFDCCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CBD1D482CBA599C00DFDCCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CC415002CF9A88800139A87 /* Week6UIHostingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week6UIHostingCell.swift; sourceTree = "<group>"; };
+		6CC415022CF9B64200139A87 /* Week6ChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week6ChartCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,7 @@
 		6CA355852CF9058A0056E49C /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				6CC415022CF9B64200139A87 /* Week6ChartCellView.swift */,
 				6CA355842CF9058A0056E49C /* PopularChatsTableCell.swift */,
 			);
 			path = TableView;
@@ -274,6 +279,7 @@
 		6CA355C52CF905C40056E49C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6CC415002CF9A88800139A87 /* Week6UIHostingCell.swift */,
 				6CA355C32CF905C40056E49C /* FinanceViewController.swift */,
 				6CA355C42CF905C40056E49C /* PopularChartsViewController.swift */,
 			);
@@ -459,11 +465,13 @@
 				6CA355A82CF905A60056E49C /* UserManager.swift in Sources */,
 				6CA355B52CF905B60056E49C /* FreeRankingApps.swift in Sources */,
 				6CA355B62CF905B60056E49C /* PaidRankingApps.swift in Sources */,
+				6CC415012CF9A8C200139A87 /* Week6UIHostingCell.swift in Sources */,
 				6CA355B72CF905B60056E49C /* SecondSectionApps.swift in Sources */,
 				6CA355B82CF905B60056E49C /* PopularChartsApp.swift in Sources */,
 				6CA355B92CF905B60056E49C /* FirstSectionApps.swift in Sources */,
 				6CA355BA2CF905B60056E49C /* DownloadState.swift in Sources */,
 				6CA355A92CF905A60056E49C /* NetworkError.swift in Sources */,
+				6CC415032CF9B65C00139A87 /* Week6ChartCellView.swift in Sources */,
 				6CA355AA2CF905A60056E49C /* UserService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

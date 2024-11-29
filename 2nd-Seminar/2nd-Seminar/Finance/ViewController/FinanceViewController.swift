@@ -139,5 +139,5 @@ extension FinanceViewController: UICollectionViewDataSource, UICollectionViewDel
 }
 
 #Preview {
-    ViewController()
+    FinanceViewController()
 }
